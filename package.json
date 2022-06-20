@@ -1,0 +1,30 @@
+{
+  "name": "dw_p6_hot_takes_backend_oc",
+  "version": "1.0.0",
+  "description": "Projet n°6 OpenClassrooms Développeur Web.",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.4.0"
+  },
+  "scripts": {
+    "serve": "node src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thomasbnt/DW_P6_Hot_Takes_backend_OC.git"
+  },
+  "keywords": [
+    "express",
+    "oc",
+    "project",
+    "openclassrooms",
+    "api"
+  ],
+  "author": "Thomas Bnt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thomasbnt/DW_P6_Hot_Takes_backend_OC/issues"
+  },
+  "homepage": "https://github.com/thomasbnt/DW_P6_Hot_Takes_backend_OC#readme"
+}
