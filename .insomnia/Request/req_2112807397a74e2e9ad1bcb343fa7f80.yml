@@ -1,0 +1,30 @@
+_id: req_2112807397a74e2e9ad1bcb343fa7f80
+type: Request
+parentId: wrk_fdbaa87d05f9422097d10f0cc8345a69
+modified: 1655992126617
+created: 1655992122506
+url: http://localhost:3000/auth/login
+name: Login
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"email": "admin@thomasbnt.fr",
+    	"password": "pass"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d454811a5d244184ab07294c0997a1d2
+authentication: {}
+metaSortKey: -1655898983853
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

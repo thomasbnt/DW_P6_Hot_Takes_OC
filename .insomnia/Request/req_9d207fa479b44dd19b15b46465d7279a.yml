@@ -1,0 +1,21 @@
+_id: req_9d207fa479b44dd19b15b46465d7279a
+type: Request
+parentId: wrk_fdbaa87d05f9422097d10f0cc8345a69
+modified: 1655992162133
+created: 1655992129656
+url: http://localhost:3000/api/sauces
+name: All sauces
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1655992129656
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
