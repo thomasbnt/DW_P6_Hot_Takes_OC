@@ -1,16 +1,17 @@
 _id: req_200831c66411474395e836e0ee5f30ed
 type: Request
 parentId: wrk_fdbaa87d05f9422097d10f0cc8345a69
-modified: 1655992179845
+modified: 1655992825027
 created: 1655992172095
 url: http://localhost:3000/api/sauces/:id
-name: Sauce per ID
+name: Sauce ID
 description: ""
 method: GET
 body: {}
 parameters: []
 headers: []
-authentication: {}
+authentication:
+  type: bearer
 metaSortKey: -1655945556779.5
 isPrivate: false
 settingStoreCookies: true

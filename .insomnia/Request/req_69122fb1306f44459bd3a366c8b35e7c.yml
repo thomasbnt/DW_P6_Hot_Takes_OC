@@ -1,18 +1,18 @@
-_id: req_9d207fa479b44dd19b15b46465d7279a
+_id: req_69122fb1306f44459bd3a366c8b35e7c
 type: Request
 parentId: wrk_fdbaa87d05f9422097d10f0cc8345a69
-modified: 1655992794016
-created: 1655992129656
-url: http://localhost:3000/api/sauces
-name: All sauces
+modified: 1655992835488
+created: 1655992740108
+url: http://localhost:3000/api/sauces/:id
+name: Delete the sauce ID
 description: ""
-method: GET
+method: DELETE
 body: {}
 parameters: []
 headers: []
 authentication:
   type: bearer
-metaSortKey: -1655933913560.375
+metaSortKey: -1655992740108
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

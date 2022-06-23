@@ -1,26 +1,27 @@
-_id: req_151c83f9245e473e8912dff01e4917dd
+_id: req_c29a3bcf43c04cf2bb3d38a0de316ee6
 type: Request
 parentId: wrk_fdbaa87d05f9422097d10f0cc8345a69
-modified: 1655992631998
-created: 1655898983903
-url: http://localhost:3000/auth/signup
-name: Signup
+modified: 1655992904534
+created: 1655992851802
+url: http://localhost:3000/api/sauces/:id/like
+name: Like sauce ID
 description: ""
 method: POST
 body:
   mimeType: application/json
   text: |-
     {
-    	"email": "admin@thomasbnt.fr",
-    	"password": "pass"
+    	"userId": "TypeString",
+    	"like": "TypeNumber"
     }
 parameters: []
 headers:
   - name: Content-Type
     value: application/json
-    id: pair_d454811a5d244184ab07294c0997a1d2
-authentication: {}
-metaSortKey: -1655898983903
+    id: pair_5055e664388c4d56beede00300f7828b
+authentication:
+  type: bearer
+metaSortKey: -1655992740158
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

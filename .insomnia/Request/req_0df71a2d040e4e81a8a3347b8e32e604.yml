@@ -1,26 +1,27 @@
-_id: req_151c83f9245e473e8912dff01e4917dd
+_id: req_0df71a2d040e4e81a8a3347b8e32e604
 type: Request
 parentId: wrk_fdbaa87d05f9422097d10f0cc8345a69
-modified: 1655992631998
-created: 1655898983903
-url: http://localhost:3000/auth/signup
-name: Signup
+modified: 1655992822161
+created: 1655992659935
+url: http://localhost:3000/api/sauces/:id
+name: Update the sauce ID
 description: ""
-method: POST
+method: PUT
 body:
   mimeType: application/json
   text: |-
     {
-    	"email": "admin@thomasbnt.fr",
-    	"password": "pass"
+    	"sauce": "TypeString",
+    	"image": "TypeFile"
     }
 parameters: []
 headers:
   - name: Content-Type
     value: application/json
-    id: pair_d454811a5d244184ab07294c0997a1d2
-authentication: {}
-metaSortKey: -1655898983903
+    id: pair_10d4241091974089bf6a351c69ed7b29
+authentication:
+  type: bearer
+metaSortKey: -1655992659935
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true
