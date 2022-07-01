@@ -2,6 +2,17 @@
 
 > Projet n°6 OpenClassrooms Développeur Web. — 19 Juin 2022.
 
+## Partie MongoDB
+
+L'utilisation de MongoDB est présente pour sauvegarder les données de l'application.
+Nous utilisons le **Cloud de MongoDB** à l'adresse https://cloud.mongodb.com.
+
+Exemple de `.env` :
+
+```dotenv
+MONGODB_USERNAME=USER
+MONGODB_PASSWORD=PASS
+```
 
 ## Cahier des charges
 
