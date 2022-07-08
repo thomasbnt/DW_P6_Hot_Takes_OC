@@ -24,10 +24,6 @@ app.use((req, res, next) => {
     next();
 });
 
-// Route de test avec l'API de dev.to
-const devtoRoute = require('./routes/devto');
-app.use('/devto', devtoRoute);
-
 // Route SIGNUP
 const signupRoute = require('./routes/signup');
 app.use('/auth/signup', signupRoute);

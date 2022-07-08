@@ -42,11 +42,8 @@ router.post('/', (req, res, next) => {
     const passwordIsValid = checkPassword(password);
 
     if (emailIsValid && passwordIsValid) {
-
-
         console.log('A new user has been created');
         success('Success: You are now signed up on Hot Takes.', res);
-
     } else {
         !emailIsValid ? error('Error: Email is required or you typed it wrong.', res) : null;
         !passwordIsValid ? error('Error: Password is required (Make sure that you put at least 6 characters for security reasons).', res) : null;
