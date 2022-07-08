@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
+const modelSignup = require('../models/mongooseSignup');
+
 function error(message, res) {
     return res.status(400).json({
         error: message
@@ -42,8 +44,32 @@ router.post('/', (req, res, next) => {
     const passwordIsValid = checkPassword(password);
 
     if (emailIsValid && passwordIsValid) {
-        console.log('A new user has been created');
-        success('Success: You are now signed up on Hot Takes.', res);
+        // si l'email est déjà dans la base de donnée, alors erreur
+        modelSignup.findOne({
+            email: email
+        }).then(email => {
+            console.log({email})
+            if (email) {
+                console.log('Email already exists');
+                error('Email already exists', res);
+            }
+            if (email === null) {
+                // si l'email n'est pas dans la base de donnée, alors on crée un nouvel utilisateur
+                const newUser = new modelSignup({
+                    email: email,
+                    password: password
+                });
+                newUser.save()
+                    .then(() => {
+                        console.log('A new user has been created');
+                        success('Success: You are now signed up on Hot Takes.', res);
+                    })
+                    .catch(err => {
+                        console.error("An error occurred while creating a new user");
+                        error("An error occurred while creating a new user", res);
+                    });
+            }
+        })
     } else {
         !emailIsValid ? error('Error: Email is required or you typed it wrong.', res) : null;
         !passwordIsValid ? error('Error: Password is required (Make sure that you put at least 6 characters for security reasons).', res) : null;
