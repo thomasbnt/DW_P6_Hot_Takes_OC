@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
-const modelSignup = require('../models/mongooseSignup');
+const user = require('../models/user');
 
 function error(message, res) {
     return res.status(400).json({
@@ -45,17 +45,16 @@ router.post('/', (req, res, next) => {
 
     if (emailIsValid && passwordIsValid) {
         // si l'email est déjà dans la base de donnée, alors erreur
-        modelSignup.findOne({
+        user.findOne({
             email: email
-        }).then(email => {
-            console.log({email})
-            if (email) {
+        }).then(findEmail => {
+            if (findEmail) {
                 console.log('Email already exists');
-                error('Email already exists', res);
+                return error('Email already exists', res);
             }
-            if (email === null) {
+            if (findEmail === null) {
                 // si l'email n'est pas dans la base de donnée, alors on crée un nouvel utilisateur
-                const newUser = new modelSignup({
+                const newUser = new user({
                     email: email,
                     password: password
                 });
@@ -65,16 +64,16 @@ router.post('/', (req, res, next) => {
                         success('Success: You are now signed up on Hot Takes.', res);
                     })
                     .catch(err => {
-                        console.error("An error occurred while creating a new user");
+                        console.error(err);
                         error("An error occurred while creating a new user", res);
                     });
             }
         })
     } else {
+        console.log('Email or password is not valid');
         !emailIsValid ? error('Error: Email is required or you typed it wrong.', res) : null;
         !passwordIsValid ? error('Error: Password is required (Make sure that you put at least 6 characters for security reasons).', res) : null;
     }
-    next();
 });
 
 
