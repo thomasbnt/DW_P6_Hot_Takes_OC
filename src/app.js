@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const mongoose = require('mongoose');
+const cors = require('cors');
+
 
 // On se connecte à la base de donnée mongoDB Atlas.
 mongoose.connect(`mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.zhjwmay.mongodb.net/?retryWrites=true&w=majority`)
@@ -15,6 +17,7 @@ app.use(express.urlencoded({
     extended: true
 }));
 app.use(express.json());
+app.use(cors());
 
 // Toutes les routes
 app.use((req, res, next) => {
@@ -27,6 +30,10 @@ app.use((req, res, next) => {
 // Route SIGNUP
 const signupRoute = require('./routes/signup');
 app.use('/auth/signup', signupRoute);
+
+// Route LOGIN
+const loginRoute = require('./routes/login');
+app.use('/auth/login', loginRoute);
 
 
 
