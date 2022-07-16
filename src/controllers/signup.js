@@ -1,5 +1,6 @@
 const signup = require("../models/user");
 const resp = require('../modules/responses');
+const validateEmailAndPassword = require("../modules/validateEmailAndPassword");
 
 exports.UserController = (req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'POST');
@@ -7,26 +8,11 @@ exports.UserController = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    // Vérifier si l'adresse email est valide
-    function checkEmail(email) {
-        if (email === undefined || email === '') {
-            return false;
-        }
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
+    validateEmailAndPassword.checkEmail(email)
+    validateEmailAndPassword.checkPassword(password)
 
-    // Vérifier si le password est valide
-    function checkPassword(password) {
-        if (password === undefined || password === '') {
-            return false;
-        }
-        // Simple système de Regex pour vérifier le mot de passe avec un minimum de 6 caractères.
-        const regPassword = /^[A-Za-z0-9]\w{6,}$/;
-        return regPassword.test(password);
-    }
-
-    const emailIsValid = checkEmail(email);
-    const passwordIsValid = checkPassword(password);
+    const emailIsValid = validateEmailAndPassword.checkEmail(email);
+    const passwordIsValid = validateEmailAndPassword.checkPassword(password);
 
     if (emailIsValid && passwordIsValid) {
         // si l'email est déjà dans la base de donnée, alors erreur
