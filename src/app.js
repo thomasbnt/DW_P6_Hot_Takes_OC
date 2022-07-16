@@ -35,6 +35,9 @@ app.use('/auth/signup', signupRoute);
 const loginRoute = require('./routes/login');
 app.use('/auth/login', loginRoute);
 
+// Route Sauces
+const saucesRoute = require('./routes/sauces');
+app.use('/api/sauces', saucesRoute);
 
 
 module.exports = app;
