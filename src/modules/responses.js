@@ -5,6 +5,12 @@ class Responses {
         });
     }
 
+    invalidCredentials(res) {
+        return res.status(401).json({
+            error: 'Invalid credentials'
+        });
+    }
+
     success(message, res) {
         return res.status(200).json({
             success: message
