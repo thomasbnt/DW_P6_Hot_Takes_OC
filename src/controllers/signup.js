@@ -1,6 +1,7 @@
 const signup = require("../models/user");
 const resp = require('../modules/responses');
 const validateEmailAndPassword = require("../modules/validateEmailAndPassword");
+const hash = require("../modules/hash");
 
 exports.UserController = (req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'POST');
@@ -18,16 +19,18 @@ exports.UserController = (req, res, next) => {
         // si l'email est déjà dans la base de donnée, alors erreur
         signup.findOne({
             email: email
-        }).then(findEmail => {
+        }).then(async findEmail => {
             if (findEmail) {
                 console.log('Email already exists');
                 return resp.error('Email already exists', res);
             }
             if (findEmail === null) {
+                // chiffre le password
+                const hashPassword = await hash.gen(password)
                 // si l'email n'est pas dans la base de donnée, alors on crée un nouvel utilisateur
                 const newUser = new signup({
                     email: email,
-                    password: password
+                    password: hashPassword
                 });
                 newUser.save()
                     .then(() => {
