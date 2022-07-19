@@ -1,4 +1,4 @@
-const signup = require("../models/user");
+const signup = require("../models/User");
 const resp = require('../modules/responses');
 const validateEmailAndPassword = require("../modules/validateEmailAndPassword");
 const hash = require("../middlewares/hash");
