@@ -1,5 +1,5 @@
 const resp = require('../modules/responses');
-authenticateToken = require('../modules/authenticateToken');
+authenticateToken = require('../middlewares/authenticateToken');
 
 exports.SaucesController = (req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET');

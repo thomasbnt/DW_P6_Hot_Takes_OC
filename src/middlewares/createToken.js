@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
-class createToken {
+class CreateToken {
     // Création d'un token pour l'utilisateur
     gen(userId) {
         return jwt.sign(
@@ -13,4 +13,4 @@ class createToken {
     }
 }
 
-module.exports = new createToken();
+module.exports = new CreateToken();

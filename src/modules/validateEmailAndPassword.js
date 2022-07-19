@@ -1,4 +1,4 @@
-class validateEmailAndPassword {
+class ValidateEmailAndPassword {
 // Vérifier si l'adresse email est valide
     checkEmail(email) {
         if (email === undefined || email === '') {
@@ -17,4 +17,4 @@ class validateEmailAndPassword {
         return regPassword.test(password);
     }
 }
-module.exports = new validateEmailAndPassword();
+module.exports = new ValidateEmailAndPassword();

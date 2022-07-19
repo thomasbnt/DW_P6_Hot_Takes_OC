@@ -1,7 +1,7 @@
 const resp = require('../modules/responses');
 const jwt = require('jsonwebtoken');
 
-class authenticateToken {
+class AuthenticateToken {
     authToken(req, res, next) {
         const authHeader = req.headers['authorization'];
         const token = authHeader && authHeader.split(' ')[1]; // Bearer <token>
@@ -17,4 +17,4 @@ class authenticateToken {
     }
 }
 
-module.exports = new authenticateToken();
+module.exports = new AuthenticateToken();

@@ -1,8 +1,8 @@
 const signup = require("../models/user");
 const resp = require('../modules/responses');
 const validateEmailAndPassword = require('../modules/validateEmailAndPassword');
-const createToken = require('../modules/createToken');
-const hash = require('../modules/hash');
+const createToken = require('../middlewares/createToken');
+const hash = require('../middlewares/hash');
 const bcrypt = require("bcrypt");
 
 exports.UserController = (req, res, next) => {

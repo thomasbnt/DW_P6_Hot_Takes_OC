@@ -1,7 +1,7 @@
 const signup = require("../models/user");
 const resp = require('../modules/responses');
 const validateEmailAndPassword = require("../modules/validateEmailAndPassword");
-const hash = require("../modules/hash");
+const hash = require("../middlewares/hash");
 
 exports.UserController = (req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'POST');
