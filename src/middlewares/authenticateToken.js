@@ -9,10 +9,8 @@ class AuthenticateToken {
         if (token == null) return resp.invalidCredentials(res); // If there is no token, send error
 
         jwt.verify(token, process.env.KEY, (err, user) => {
-            console.log({user})
             if (err) return res.sendStatus(403); // If token is not valid, send error
             req.user = user;
-            next();
         });
     }
 }
