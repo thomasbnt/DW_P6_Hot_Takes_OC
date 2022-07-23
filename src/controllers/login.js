@@ -2,10 +2,9 @@ const signup = require("../models/User");
 const resp = require('../modules/responses');
 const validateEmailAndPassword = require('../modules/validateEmailAndPassword');
 const createToken = require('../middlewares/createToken');
-const hash = require('../middlewares/hash');
 const bcrypt = require("bcrypt");
 
-exports.UserController = (req, res, next) => {
+exports.UserController = (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'POST');
     console.log('Login request received');
     const email = req.body.email;
