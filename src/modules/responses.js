@@ -5,6 +5,17 @@ class Responses {
         });
     }
 
+    notFound(res) {
+        return res.status(404).json({
+            error: 'Not found'
+        });
+    }
+
+    conflict(msg, res) {
+        return res.status(409).json({
+            error: msg || 'Conflict!'
+        });
+    }
     invalidCredentials(res) {
         return res.status(401).json({
             error: 'Invalid credentials'
