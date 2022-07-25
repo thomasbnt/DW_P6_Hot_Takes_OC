@@ -3,7 +3,7 @@ const app = express();
 require('dotenv').config();
 const mongoose = require('mongoose');
 const cors = require('cors');
-
+const path = require("path");
 
 // On se connecte à la base de donnée mongoDB Atlas.
 mongoose.connect(`mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.zhjwmay.mongodb.net/?retryWrites=true&w=majority`)
@@ -19,10 +19,13 @@ app.use(express.urlencoded({
 app.use(express.json());
 app.use(cors());
 
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
 // Toutes les routes
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Accept', 'application/json');
     next();
 });
 
