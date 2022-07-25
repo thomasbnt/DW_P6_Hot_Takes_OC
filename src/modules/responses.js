@@ -1,7 +1,7 @@
 class Responses {
     error(message, res) {
         return res.status(400).json({
-            error: message
+            error: message || 'Error'
         });
     }
 
