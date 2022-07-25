@@ -7,7 +7,7 @@ class CreateToken {
         return jwt.sign(
             {userId: userId},
             process.env.KEY,
-            {expiresIn: '1d'}
+            {expiresIn: '1y'}
         )
 
     }
