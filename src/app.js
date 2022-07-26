@@ -17,15 +17,14 @@ app.use(express.urlencoded({
     extended: true
 }));
 app.use(express.json());
-app.use(cors());
+app.use(cors({origin: process.env.FRONT_DOMAIN || 'same-origin'}));
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // Toutes les routes
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-    res.setHeader('Accept', 'application/json');
+    res.setHeader('Accept', 'application/json, multipart/form-data');
     next();
 });
 
