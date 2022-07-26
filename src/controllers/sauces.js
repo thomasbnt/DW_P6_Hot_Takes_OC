@@ -8,7 +8,6 @@ authenticateToken = require('../middlewares/authenticateToken');
  */
 
 exports.GetAllSauces = (req, res) => {
-    res.setHeader('Access-Control-Allow-Methods', 'GET');
     console.log('GetAllSauces request received');
     Sauces.find().then(sauces => {
         resp.success(sauces, res);
@@ -19,7 +18,6 @@ exports.GetAllSauces = (req, res) => {
 }
 
 exports.GetSaucesPerID = (req, res) => {
-    res.setHeader('Access-Control-Allow-Methods', 'GET');
     console.log('Sauces per ID request received');
     Sauces.findOne({_id: req.params.id})
         .then(allSauces => resp.success(allSauces, res))
@@ -27,7 +25,6 @@ exports.GetSaucesPerID = (req, res) => {
 };
 
 exports.CreateSauce = (req, res) => {
-    res.setHeader('Access-Control-Allow-Methods', 'POST');
     console.log('CreateSauce request received');
     /*
     * Exemple
@@ -69,7 +66,6 @@ exports.CreateSauce = (req, res) => {
 }
 
 exports.UpdateSauce = (req, res) => {
-    res.setHeader('Access-Control-Allow-Methods', 'PUT');
     console.log('UpdateSauce request received');
     Sauces.updateOne(
         {_id: req.params.id},
@@ -84,7 +80,6 @@ exports.UpdateSauce = (req, res) => {
 };
 
 exports.DeleteSauce = (req, res) => {
-    res.setHeader('Access-Control-Allow-Methods', 'DELETE');
     console.log('DeleteSauce request received');
     Sauces.findOneAndDelete({_id: req.params.id})
         .then(() => resp.success('Sauce deleted', res))
@@ -92,7 +87,6 @@ exports.DeleteSauce = (req, res) => {
 };
 
 exports.LikeSauce = (req, res) => {
-    res.setHeader('Access-Control-Allow-Methods', 'POST');
     console.log('LikeSauce request received');
     Sauces.findOne({_id: req.params.id})
         .then(sauce => {
