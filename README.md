@@ -12,6 +12,8 @@ Exemple de `.env` :
 ```dotenv
 MONGODB_USERNAME=USER
 MONGODB_PASSWORD=PASS
+KEY=key
+FRONT_DOMAIN=*
 ```
 
 ## Cahier des charges
