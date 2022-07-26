@@ -30,8 +30,7 @@ exports.CreateSauce = (req, res) => {
     * Exemple
     * {  "name": "Pas mal piquante",  "manufacturer": "Mexique",  "description": "Je pique pas mal",  "mainPepper": "Piment pimenté",  "imageUrl": "localhost/imaage.png",  "heat": 0}
      */
-    console.log(req);
-    const newSauce = req
+    const newSauce = JSON.parse(req.body.sauce)
     /*console.log(req.protocol + '://' + req.get('host'));*/
     const sauce = new Sauces({
         name: newSauce.name,
@@ -43,10 +42,11 @@ exports.CreateSauce = (req, res) => {
 
         likes: 0,
         dislikes: 0,
-        usersLiked: [" "],
-        usersDisliked: [" "],
+        usersLiked: [],
+        usersDisliked: [],
     });
-    if (newSauce.heat <= 0 && newSauce.heat <= 10) {
+    if (newSauce.heat >= 0 && newSauce.heat <= 10) {
+
         sauce.save()
             .then(() => resp.success(sauce, res))
             .catch((err) => {
