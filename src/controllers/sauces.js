@@ -2,11 +2,6 @@ const resp = require('../modules/responses');
 const Sauces = require('../models/Sauce');
 authenticateToken = require('../middlewares/authenticateToken');
 
-/**
- * TODO :
- * CreateSauce
- */
-
 exports.GetAllSauces = (req, res) => {
     console.log('GetAllSauces request received');
     Sauces.find().then(sauces => {
