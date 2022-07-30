@@ -3,7 +3,7 @@ const Sauces = require('../models/Sauce');
 authenticateToken = require('../middlewares/authenticateToken');
 
 exports.GetAllSauces = (req, res) => {
-    console.log('GetAllSauces request received');
+    console.info('GetAllSauces request received');
     Sauces.find().then(sauces => {
         resp.success(sauces, res);
     }).catch(err => {
@@ -13,14 +13,13 @@ exports.GetAllSauces = (req, res) => {
 }
 
 exports.GetSaucesPerID = (req, res) => {
-    console.log('Sauces per ID request received');
+    console.info('Sauces per ID request received');
     Sauces.findOne({_id: req.params.id})
         .then(allSauces => resp.success(allSauces, res))
         .catch(error => resp.error(null, res))
 };
 
 exports.CreateSauce = (req, res) => {
-    console.log('CreateSauce request received');
     /*
     * Exemple
     * {  "name": "Pas mal piquante",  "manufacturer": "Mexique",  "description": "Je pique pas mal",  "mainPepper": "Piment pimenté",  "imageUrl": "localhost/imaage.png",  "heat": 0}
@@ -34,6 +33,7 @@ exports.CreateSauce = (req, res) => {
         mainPepper: newSauce.mainPepper,
         imageUrl: `${req.protocol}://${req.get("host")}/images/${newSauce.imageUrl}`,
         heat: newSauce.heat,
+    console.info('CreateSauce request received');
 
         likes: 0,
         dislikes: 0,
@@ -61,7 +61,7 @@ exports.CreateSauce = (req, res) => {
 }
 
 exports.UpdateSauce = (req, res) => {
-    console.log('UpdateSauce request received');
+    console.info('UpdateSauce request received');
     Sauces.updateOne(
         {_id: req.params.id},
         {...req.body, _id: req.params.id}
@@ -82,7 +82,7 @@ exports.DeleteSauce = (req, res) => {
 };
 
 exports.LikeSauce = (req, res) => {
-    console.log('LikeSauce request received');
+    console.info('LikeSauce request received');
     Sauces.findOne({_id: req.params.id})
         .then(sauce => {
             console.log({sauce})
