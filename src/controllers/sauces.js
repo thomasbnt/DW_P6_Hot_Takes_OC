@@ -16,7 +16,7 @@ exports.GetSaucesPerID = (req, res) => {
     console.info('Sauces per ID request received');
     Sauces.findOne({_id: req.params.id})
         .then(allSauces => resp.success(allSauces, res))
-        .catch(error => resp.error(null, res))
+        .catch(resp.error(null, res))
 };
 
 exports.CreateSauce = (req, res) => {
