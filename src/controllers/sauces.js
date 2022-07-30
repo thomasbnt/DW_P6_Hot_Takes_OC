@@ -20,34 +20,39 @@ exports.GetSaucesPerID = (req, res) => {
 };
 
 exports.CreateSauce = (req, res) => {
-    /*
-    * Exemple
-    * {  "name": "Pas mal piquante",  "manufacturer": "Mexique",  "description": "Je pique pas mal",  "mainPepper": "Piment pimenté",  "imageUrl": "localhost/imaage.png",  "heat": 0}
-     */
-    const newSauce = JSON.parse(req.body.sauce)
-    /*console.log(req.protocol + '://' + req.get('host'));*/
-    const sauce = new Sauces({
-        name: newSauce.name,
-        manufacturer: newSauce.manufacturer,
-        description: newSauce.description,
-        mainPepper: newSauce.mainPepper,
-        imageUrl: `${req.protocol}://${req.get("host")}/images/${newSauce.imageUrl}`,
-        heat: newSauce.heat,
     console.info('CreateSauce request received');
+    let errorParams = false;
+    const newSauce = JSON.parse(req.body.sauce);
 
-        likes: 0,
-        dislikes: 0,
-        usersLiked: [],
-        usersDisliked: [],
-    });
-    if (newSauce.heat >= 0 && newSauce.heat <= 10) {
+    if (
+        (!newSauce.name || !newSauce.manufacturer || !newSauce.description || !newSauce.mainPepper || !req.file || !newSauce.heat)
+        && ((newSauce.heat >= 0) && (newSauce.heat <= 10))
+    ) {
+        errorParams = true;
+        resp.error('Missing parameters on your request.', res)
+    }
 
+    if (!errorParams) {
+        const sauce = new Sauces({
+            ...newSauce,
+            name: newSauce.name,
+            manufacturer: newSauce.manufacturer,
+            description: newSauce.description,
+            mainPepper: newSauce.mainPepper,
+            imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+            heat: newSauce.heat,
+
+            likes: 0,
+            dislikes: 0,
+            usersLiked: [],
+            usersDisliked: [],
+        });
         sauce.save()
-            .then(() => resp.success(sauce, res))
+            .then(() => resp.created(sauce, res))
             .catch((err) => {
                     let errMess
                     if (err._message === undefined) {
-                        errMess = 'Missing parameters';
+                        errMess = 'Missing parameters.';
                     } else {
                         errMess = err._message;
                     }
@@ -55,22 +60,28 @@ exports.CreateSauce = (req, res) => {
                     console.log(err)
                 }
             );
-    } else {
-        resp.error('Heat must be between 0 and 10.', res);
     }
 }
 
 exports.UpdateSauce = (req, res) => {
     console.info('UpdateSauce request received');
+    if (!req.body.sauce) return resp.error('Missing parameters', res);
+
+    const updatedSauce = JSON.parse(req.body.sauce)
+    console.log({updatedSauce})
+
     Sauces.updateOne(
         {_id: req.params.id},
-        {...req.body, _id: req.params.id}
-    ).then(updatedSauce => {
-        if (updatedSauce.modifiedCount === 0) return resp.error('Sauce not modified because no body here or badly written.', res);
-        resp.success(updatedSauce, res)
+        {updatedSauce, _id: req.params.id}
+    ).then((sauce) => {
+        console.log({sauce})
+        console.log({sauceModifiedCount: sauce.modifiedCount})
+        if (sauce.modifiedCount === 0) return resp.error('Sauce not modified because no body here or badly written.', res);
+
+        resp.success(sauce, res)
     }).catch(err => {
         console.log(err);
-        resp.error('Error while updating sauce.', res)
+        resp.conflict('Error while updating sauce.', res)
     })
 };
 
