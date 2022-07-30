@@ -27,6 +27,12 @@ class Responses {
             success: message
         });
     }
+
+    created(message, res) {
+        return res.status(201).json({
+            success: message || 'Created'
+        });
+    }
 }
 
 module.exports = new Responses();
