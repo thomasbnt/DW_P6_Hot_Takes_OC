@@ -108,27 +108,118 @@ exports.LikeSauce = (req, res) => {
 
     Sauces.findOne({_id: req.params.id})
         .then(sauce => {
-            console.log({sauce})
-            const body = req.body;
-            if (!body.userId || (body.like <= -1 && body.like >= 1))
-                return resp.error('Missing parameters userId/like', res);
-            // Si le userId like
-            if (body.like === 1) {
-                sauce.likes++;
-                sauce.usersLiked.push(body.userId);
-                resp.success(sauce, res);
+            console.log({likeSauce})
+            // Si la sauce n'existe pas
+            if (sauce === null) return resp.error('Sauce not found', res);
+
+            const isLikedByUserId = sauce.usersLiked.includes(likeSauce.userId);
+            const isDislikedByUserId = sauce.usersDisliked.includes(likeSauce.userId);
+
+            console.log({isLikedByUserId, isDislikedByUserId})
+
+            // Si req.body.like vaut 1
+            if (likeSauce.like === 1) {
+                // Si u a déjà liké la sauce
+                if (isLikedByUserId) {
+                    console.log('already liked')
+                    return resp.error('You already liked this sauce.', res)
+                } else if (isDislikedByUserId) {
+                    sauce.likes += 1;
+                    sauce.dislikes -= 1;
+                    sauce.usersLiked.push(likeSauce.userId);
+                    sauce.usersDisliked.remove(likeSauce.userId);
+                    sauce.usersDisliked = sauce.usersDisliked.filter(userId => userId !== likeSauce.userId);
+                    sauce.save()
+                        .then(() => resp.success(sauce, res))
+                        .catch(err => {
+                                console.log(err);
+                                resp.error('Error while updating sauce.', res)
+                            }
+                        )
+                } else {
+                    sauce.likes += 1;
+                    sauce.usersLiked.push(likeSauce.userId);
+                    sauce.save()
+                        .then(() => resp.success(sauce, res))
+                        .catch(err => {
+                                console.log(err);
+                                resp.error('Error while updating sauce.', res)
+                            }
+                        )
+                }
+
+
             }
-            // Si le userId dislike
-            if (body.like === -1) {
-                sauce.dislikes++;
-                sauce.usersDisliked.push(body.userId);
-                resp.success(sauce, res);
+
+            // Si req.body.like vaut -1
+            else if (likeSauce.like === -1) {
+                // Si l'utilisateur a déjà liké la sauce
+                if (isLikedByUserId) {
+                    // Cet utilisateur n'aimait pas cette sauce, il peut donc l'aimer.
+                    // On supprime l'id de l'utilisateur dans usersDisliked
+                    sauce.usersLiked.remove(likeSauce.userId);
+                    // On ajoute l'id de l'utilisateur dans usersLiked
+                    sauce.usersDisliked.push(likeSauce.userId);
+                    // On diminue le nombre de likes de la sauce
+                    sauce.likes--;
+                    sauce.dislikes++;
+                    // On met à jour la sauce
+                    Sauces.updateOne({_id: sauce._id}, sauce)
+                        .then(() => resp.success(sauce, res))
+                        .catch(err => {
+                            console.log(err);
+                            resp.error('Error while updating sauce.', res)
+                        })
+                }
+                // Si l'utilisateur a déjà marqué comme il n'aimait pas la sauce
+                else if (isDislikedByUserId) {
+                    return resp.error('You already disliked this sauce.', res)
+                } else {
+                    // User never disliked this sauce
+                    sauce.dislikes += 1;
+                    sauce.usersDisliked.push(likeSauce.userId);
+                    sauce.usersLiked = sauce.usersLiked.filter(userId => userId !== likeSauce.userId);
+                    sauce.save().then(() => resp.success(sauce, res)).catch(err => {
+                            console.log(err);
+                            resp.error('Error while updating sauce.', res)
+                        }
+                    )
+                }
             }
-            // Si le userId n'a pas liké ou dislike
-            if (body.like === 0) {
-                resp.success(sauce, res);
+
+            // Si req.body.like vaut 0
+            else if (likeSauce.like === 0) {
+                // Si l'utilisateur a déjà liké la sauce
+                if (isLikedByUserId) {
+                    sauce.usersLiked.remove(likeSauce.userId);
+                    sauce.likes--;
+                    sauce.save().then(() => resp.success(sauce, res)).catch(err => {
+                            console.log(err);
+                            resp.error('Error while updating sauce.', res)
+                        }
+                    )
+                }
+                // Si l'utilisateur a déjà marqué comme il n'aimait pas la sauce
+                else if (isDislikedByUserId) {
+                    sauce.usersDisliked.remove(likeSauce.userId);
+                    sauce.dislikes--;
+                    sauce.save().then(() => resp.success(sauce, res)).catch(err => {
+                            console.log(err);
+                            resp.error('Error while updating sauce.', res)
+                        }
+                    )
+                }
+                // Si l'utilisateur n'a jamais aimé ou n'aime pas la sauce
+                else {
+                    return resp.error('You never liked or disliked this sauce.', res)
+                }
+            } else {
+                resp.error('Like must be a number between -1 and 1.', res);
             }
-        })
-        .catch(error => res.status(400).json({error}))
+
+
+        }).catch((err) => {
+        console.log({err})
+    })
 
 }
