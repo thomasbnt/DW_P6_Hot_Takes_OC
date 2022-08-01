@@ -108,14 +108,11 @@ exports.LikeSauce = (req, res) => {
 
     Sauces.findOne({_id: req.params.id})
         .then(sauce => {
-            console.log({likeSauce})
             // Si la sauce n'existe pas
             if (sauce === null) return resp.error('Sauce not found', res);
 
             const isLikedByUserId = sauce.usersLiked.includes(likeSauce.userId);
             const isDislikedByUserId = sauce.usersDisliked.includes(likeSauce.userId);
-
-            console.log({isLikedByUserId, isDislikedByUserId})
 
             // Si req.body.like vaut 1
             if (likeSauce.like === 1) {
