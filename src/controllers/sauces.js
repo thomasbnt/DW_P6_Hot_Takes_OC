@@ -89,9 +89,16 @@ exports.UpdateSauce = (req, res) => {
 
 exports.DeleteSauce = (req, res) => {
     console.log('DeleteSauce request received');
-    Sauces.findOneAndDelete({_id: req.params.id})
-        .then(() => resp.success('Sauce deleted', res))
-        .catch(resp.error('Maybe the ID isn\'t on database or badly written.', res))
+
+    Sauces.deleteOne({_id: req.params.id})
+        .then((response) => {
+            if (response.deletedCount === 0) return resp.error('Sauce not found or already deleted.', res);
+            return resp.success('Sauce deleted', res)
+        })
+        .catch(() => {
+            return resp.error('Maybe the ID isn\'t on database or badly written.', res)
+        })
+
 };
 
 exports.LikeSauce = (req, res) => {
