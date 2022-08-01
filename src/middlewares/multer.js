@@ -2,7 +2,9 @@ const multer = require("multer");
 const MIME_TYPE_MAP = {
     "image/png": "png",
     "image/jpeg": "jpg",
-    "image/jpg": "jpg"
+    "image/jpg": "jpg",
+    "image/gif": "gif",
+    "image/webp": "webp"
 }
 
 function getFileNameWithoutExtension(filename) {
