@@ -96,6 +96,16 @@ exports.DeleteSauce = (req, res) => {
 
 exports.LikeSauce = (req, res) => {
     console.info('LikeSauce request received');
+
+    const likeSauce = req.body;
+    // On vérifie si userId est dans le body
+    if (!likeSauce.userId) return resp.error('Missing parameter userId as a string', res);
+    // On vérifie si like est dans le body et qu'il ne vaut pas 0
+    if (!likeSauce.like && (likeSauce.like !== 0)) {
+        return resp.error('Missing parameter like as a number between -1 and 1.', res);
+    }
+
+
     Sauces.findOne({_id: req.params.id})
         .then(sauce => {
             console.log({sauce})
