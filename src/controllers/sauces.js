@@ -15,8 +15,10 @@ exports.GetAllSauces = (req, res) => {
 exports.GetSaucesPerID = (req, res) => {
     console.info('Sauces per ID request received');
     Sauces.findOne({_id: req.params.id})
-        .then(allSauces => resp.success(allSauces, res))
-        .catch(resp.error(null, res))
+        .then((allSauces) => {
+            if (allSauces === null) return resp.error('Sauce not found.', res);
+            resp.success(allSauces, res);
+        })
 };
 
 exports.CreateSauce = (req, res) => {
