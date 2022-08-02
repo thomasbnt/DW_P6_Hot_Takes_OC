@@ -1,3 +1,8 @@
+[![Wakatime](https://wakatime.com/badge/user/df804057-413e-4b60-8f5e-6a6b78ab1d7f/project/1a5cf525-3f98-4ec5-9e39-23420c10e610.svg?style=for-the-badge)](https://wakatime.com/badge/user/df804057-413e-4b60-8f5e-6a6b78ab1d7f/project/1a5cf525-3f98-4ec5-9e39-23420c10e610)
+[![Build with MongoDB](https://img.shields.io/badge/Build%20with%20mongoDB-%2300f.svg?&style=for-the-badge&logo=mongodb&logoColor=white)](https://github.com/Automattic/mongoose)
+[![build with ExpressJS](https://img.shields.io/badge/Build%20with%20Express-%234752C4.svg?&style=for-the-badge&logo=express&logoColor=white&alt=express)](https://github.com/expressjs/express)
+
+
 ![Hot Takes logo](piiquante.png)
 
 > Projet n°6 OpenClassrooms Développeur Web. — 19 Juin 2022.
