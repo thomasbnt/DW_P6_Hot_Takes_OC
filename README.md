@@ -50,7 +50,7 @@ FRONT_DOMAIN=*
 
 ### Ouvrir les tests API sur Insomnia
 
-[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run?label=Code&uri=https://raw.githubusercontent.com/thomasbnt/DW_P6_Hot_Takes_backend_OC/backend/main/insomnia.json)
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run?label=Code&uri=https://raw.githubusercontent.com/thomasbnt/DW_P6_Hot_Takes_backend_OC/main/backend/insomnia.json)
 
 ## Développement
 
