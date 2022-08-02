@@ -3,6 +3,7 @@ const resp = require('../modules/responses');
 const validateEmailAndPassword = require('../modules/validateEmailAndPassword');
 const createToken = require('../middlewares/createToken');
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 exports.UserController = (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'POST');
@@ -18,29 +19,35 @@ exports.UserController = (req, res) => {
 
     if (emailIsValid && passwordIsValid) {
         // si l'email est déjà dans la base de donnée, alors erreur
-        signup.findOne({
-            email: email
-        }).then(async findEmail => {
-            if (findEmail) {
-                // si le password correspond, alors ok
-                bcrypt.compare(password, findEmail.password, (err, result) => {
-                    if (err) {
-                        resp.invalidCredentials(res);
-                    }
-                    if (result) {
-                        const tokenGenerated = createToken.gen(findEmail._id);
-                        resp.success({userId: findEmail._id, token: tokenGenerated}, res);
-                    }
-                })
-            }
-            if (findEmail === null) {
-                // si l'email n'est pas dans la base de donnée, alors affiche une erreur
-                resp.invalidCredentials(res);
-            }
-        })
+        signup.findOne({email: req.body.email})
+            .then(user => {
+                if (!user) {
+                    resp.invalidCredentials('Invalid credentials', res);
+                } else {
+                    bcrypt.compare(password, user.password)
+                        .then(userFounded => {
+                            if (!userFounded) {
+                                resp.invalidCredentials('Invalid credentials', res);
+                            } else {
+                                res.status(200).json({
+                                    userId: user._id,
+                                    token: jwt.sign(
+                                        {userId: user._id},
+                                        process.env.KEY,
+                                        {expiresIn: '1d'}
+                                    )
+                                })
+                            }
+                        }).catch(error => {
+                            console.log(error);
+                            resp.internalError(error, res);
+                        }
+                    );
+                }
+            }).catch(error => resp.internalError(error, res))
     } else {
         console.log('Email or password is not valid');
-        !emailIsValid ? resp.error('Error: Email is required or you typed it wrong.', res) : null;
-        !passwordIsValid ? resp.error('Error: Password is required.', res) : null;
+        !emailIsValid ? resp.invalidCredentials('Error: Email is required or you typed it wrong.', res) : null;
+        !passwordIsValid ? resp.invalidCredentials('Error: Password is required.', res) : null;
     }
 }

@@ -19,12 +19,12 @@ Chaque partie à son propre **package.json**.
  
 Pour pouvoir exécuter ce projet, veuillez suivre ces étapes. 
 
-1. Installez **NodeJS** et **npm**.
+1. Installez **NodeJS** (>= 16.10 pour Angular) et **npm**.
 2. Installez les dépendances nécessaires aux deux parties (frontend et backend).
 3. Copiez le fichier [.env.example](/backend/.env.example) en `.env` et remplacez les valeurs par vos propres.
 4. N'oubliez pas d'avoir un accès à votre base de données MongoDB (Voir ci-dessous pour les configurations)
-5. Exécutez le script backend, à coup de `npm run serve`.
-6. Exécutez le script frontend, à coup de `npm run start`.
+5. Exécutez le script backend, à coup de `npm run serve`. _Port 3000_
+6. Exécutez le script frontend, à coup de `npm run start`. _Port 4200_ (Ou `ng serve`)
 7. Vous pouvez maintenant accéder à l'interface de votre site.
 
 ## Partie MongoDB

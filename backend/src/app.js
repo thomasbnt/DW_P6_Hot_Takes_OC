@@ -30,11 +30,11 @@ app.use((req, res, next) => {
 
 // Route SIGNUP
 const signupRoute = require('./routes/signup');
-app.use('/auth/signup', signupRoute);
+app.use('/api/auth/signup', signupRoute);
 
 // Route LOGIN
 const loginRoute = require('./routes/login');
-app.use('/auth/login', loginRoute);
+app.use('/api/auth/login', loginRoute);
 
 // Route Sauces
 const saucesRoute = require('./routes/sauces');

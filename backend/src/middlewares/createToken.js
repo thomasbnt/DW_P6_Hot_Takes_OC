@@ -1,15 +1,13 @@
-const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
 class CreateToken {
     // Création d'un token pour l'utilisateur
-    gen(userId) {
+    gen(findEmail) {
         return jwt.sign(
-            {userId: userId},
+            {userId: findEmail._id},
             process.env.KEY,
-            {expiresIn: '1y'}
-        )
-
+            {expiresIn: '1d'}
+        );
     }
 }
 
