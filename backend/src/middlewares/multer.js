@@ -7,12 +7,12 @@ const MIME_TYPE_MAP = {
     "image/webp": "webp"
 }
 
+// Function permettant de supprimer l'extension du nom du fichier
 function getFileNameWithoutExtension(filename) {
     return filename.split('.').slice(0, -1).join('.')
 }
 
-
-
+// On traite l'image envoyée et lui donne un nom
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'src/images')

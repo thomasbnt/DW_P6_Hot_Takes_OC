@@ -6,7 +6,6 @@ const SaucesCtrl = require('../controllers/sauces');
 const auth = require('../middlewares/authenticateToken');
 const upload = require('../middlewares/multer');
 
-
 router.get('/', cors({methods: "GET"}), auth, SaucesCtrl.GetAllSauces);
 router.get('/:id', cors({methods: "GET"}), auth, SaucesCtrl.GetSaucesPerID);
 router.post('/', cors({methods: "POST"}), auth, upload.single('image'), SaucesCtrl.CreateSauce);

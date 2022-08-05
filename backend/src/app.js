@@ -10,6 +10,7 @@ mongoose.connect(`mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MO
     .then(() => console.log('Connected to MongoDB Atlas'))
     .catch(err => console.log(err));
 
+// Pour des raisons de sécurité, on cache le fait que le serveur tourne sous Express
 app.disable("x-powered-by");
 
 // Pour avoir le body dans le request
@@ -39,6 +40,5 @@ app.use('/api/auth/login', loginRoute);
 // Route Sauces
 const saucesRoute = require('./routes/sauces');
 app.use('/api/sauces', saucesRoute);
-
 
 module.exports = app;

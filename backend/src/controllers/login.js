@@ -1,7 +1,6 @@
 const signup = require("../models/User");
 const resp = require('../modules/responses');
 const validateEmailAndPassword = require('../modules/validateEmailAndPassword');
-const createToken = require('../middlewares/createToken');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -17,6 +16,7 @@ exports.UserController = (req, res) => {
     const emailIsValid = validateEmailAndPassword.checkEmail(email);
     const passwordIsValid = validateEmailAndPassword.checkPassword(password);
 
+    // On vérifie si l'email et le password est bien renseigné
     if (emailIsValid && passwordIsValid) {
         // si l'email est déjà dans la base de donnée, alors erreur
         signup.findOne({email: req.body.email})
@@ -24,6 +24,7 @@ exports.UserController = (req, res) => {
                 if (!user) {
                     resp.invalidCredentials('Invalid credentials', res);
                 } else {
+                    // On compare le mot de passe dans la base de donnée et celui qu'on envoie en paramètre
                     bcrypt.compare(password, user.password)
                         .then(userFounded => {
                             if (!userFounded) {
@@ -46,6 +47,7 @@ exports.UserController = (req, res) => {
                 }
             }).catch(error => resp.internalError(error, res))
     } else {
+        // Si l'email ou le password n'est pas renseigné, alors erreur
         console.log('Email or password is not valid');
         !emailIsValid ? resp.invalidCredentials('Error: Email is required or you typed it wrong.', res) : null;
         !passwordIsValid ? resp.invalidCredentials('Error: Password is required.', res) : null;

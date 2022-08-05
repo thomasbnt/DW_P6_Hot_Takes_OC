@@ -3,7 +3,7 @@ const resp = require('../modules/responses');
 const validateEmailAndPassword = require("../modules/validateEmailAndPassword");
 const hash = require("../middlewares/hash");
 
-exports.UserController = (req, res, next) => {
+exports.UserController = (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'POST');
     console.log('Signup request received');
     const email = req.body.email;
