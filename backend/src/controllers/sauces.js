@@ -4,8 +4,9 @@ authenticateToken = require('../middlewares/authenticateToken');
 
 exports.GetAllSauces = (req, res) => {
     console.info('GetAllSauces request received');
+    // On récupère toutes les sauces
     Sauces.find().then(sauces => {
-        resp.success(sauces, res);
+        res.status(200).json(sauces);
     }).catch(err => {
         resp.notFound(res);
         console.error(err);
@@ -14,10 +15,11 @@ exports.GetAllSauces = (req, res) => {
 
 exports.GetSaucesPerID = (req, res) => {
     console.info('Sauces per ID request received');
+    // On récupère une sauce par son ID
     Sauces.findOne({_id: req.params.id})
         .then((allSauces) => {
             if (allSauces === null) return resp.error('Sauce not found.', res);
-            resp.success(allSauces, res);
+            res.status(200).json(allSauces);
         })
 };
 
@@ -26,14 +28,17 @@ exports.CreateSauce = (req, res) => {
     let errorParams = false;
     const newSauce = JSON.parse(req.body.sauce);
 
+    // On vérifie que les paramètres sont bien renseignés
     if (
         (!newSauce.name || !newSauce.manufacturer || !newSauce.description || !newSauce.mainPepper || !req.file || !newSauce.heat)
         && ((newSauce.heat >= 0) && (newSauce.heat <= 10))
     ) {
+        // Si les paramètres sont mal renseignés, alors erreur
         errorParams = true;
         resp.error('Missing parameters on your request.', res)
     }
 
+    // Si dans le cas présent aucune erreur, alors on crée la sauce
     if (!errorParams) {
         const sauce = new Sauces({
             ...newSauce,
@@ -49,6 +54,7 @@ exports.CreateSauce = (req, res) => {
             usersLiked: [],
             usersDisliked: [],
         });
+        // Et on l'enregistre dans la base de données
         sauce.save()
             .then(() => resp.created(sauce, res))
             .catch((err) => {
@@ -70,17 +76,14 @@ exports.UpdateSauce = (req, res) => {
     if (!req.body.sauce) return resp.error('Missing parameters', res);
 
     const updatedSauce = JSON.parse(req.body.sauce)
-    console.log({updatedSauce})
-
+    // On vérifie que l'ID ciblé est bien présent dans la base de données
     Sauces.updateOne(
         {_id: req.params.id},
         {updatedSauce, _id: req.params.id}
     ).then((sauce) => {
-        console.log({sauce})
-        console.log({sauceModifiedCount: sauce.modifiedCount})
+        // Si l'ID est présent, alors on met à jour la sauce
         if (sauce.modifiedCount === 0) return resp.error('Sauce not modified because no body here or badly written.', res);
-
-        resp.success(sauce, res)
+        res.status(200).json(sauce);
     }).catch(err => {
         console.log(err);
         resp.conflict('Error while updating sauce.', res)
@@ -89,21 +92,21 @@ exports.UpdateSauce = (req, res) => {
 
 exports.DeleteSauce = (req, res) => {
     console.log('DeleteSauce request received');
-
+    // On vérifie que l'ID ciblé est bien présent dans la base de données
     Sauces.deleteOne({_id: req.params.id})
         .then((response) => {
+            // Si aucune modification n'a été faite, alors on renvoie une erreur
             if (response.deletedCount === 0) return resp.error('Sauce not found or already deleted.', res);
+            // Et si c'est le cas, on supprime la sauce
             return resp.success('Sauce deleted', res)
         })
         .catch(() => {
             return resp.error('Maybe the ID isn\'t on database or badly written.', res)
         })
-
 };
 
 exports.LikeSauce = (req, res) => {
     console.info('LikeSauce request received');
-
     const likeSauce = req.body;
     // On vérifie si userId est dans le body
     if (!likeSauce.userId) return resp.error('Missing parameter userId as a string', res);
@@ -111,7 +114,6 @@ exports.LikeSauce = (req, res) => {
     if (!likeSauce.like && (likeSauce.like !== 0)) {
         return resp.error('Missing parameter like as a number between -1 and 1.', res);
     }
-
 
     Sauces.findOne({_id: req.params.id})
         .then(sauce => {
@@ -133,28 +135,21 @@ exports.LikeSauce = (req, res) => {
                     sauce.usersLiked.push(likeSauce.userId);
                     sauce.usersDisliked.remove(likeSauce.userId);
                     sauce.usersDisliked = sauce.usersDisliked.filter(userId => userId !== likeSauce.userId);
-                    sauce.save()
-                        .then(() => resp.success(sauce, res))
-                        .catch(err => {
-                                console.log(err);
-                                resp.error('Error while updating sauce.', res)
-                            }
-                        )
+                    sauce.save().then(() => resp.success(sauce, res)).catch(err => {
+                            console.log(err);
+                            resp.error('Error while updating sauce.', res)
+                        }
+                    )
                 } else {
                     sauce.likes += 1;
                     sauce.usersLiked.push(likeSauce.userId);
-                    sauce.save()
-                        .then(() => resp.success(sauce, res))
-                        .catch(err => {
-                                console.log(err);
-                                resp.error('Error while updating sauce.', res)
-                            }
-                        )
+                    sauce.save().then(() => resp.success(sauce, res)).catch(err => {
+                            console.log(err);
+                            resp.error('Error while updating sauce.', res)
+                        }
+                    )
                 }
-
-
             }
-
             // Si req.body.like vaut -1
             else if (likeSauce.like === -1) {
                 // Si l'utilisateur a déjà liké la sauce
@@ -168,12 +163,10 @@ exports.LikeSauce = (req, res) => {
                     sauce.likes--;
                     sauce.dislikes++;
                     // On met à jour la sauce
-                    Sauces.updateOne({_id: sauce._id}, sauce)
-                        .then(() => resp.success(sauce, res))
-                        .catch(err => {
-                            console.log(err);
-                            resp.error('Error while updating sauce.', res)
-                        })
+                    Sauces.updateOne({_id: sauce._id}, sauce).then(() => resp.success(sauce, res)).catch(err => {
+                        console.log(err);
+                        resp.error('Error while updating sauce.', res)
+                    })
                 }
                 // Si l'utilisateur a déjà marqué comme il n'aimait pas la sauce
                 else if (isDislikedByUserId) {
@@ -190,7 +183,6 @@ exports.LikeSauce = (req, res) => {
                     )
                 }
             }
-
             // Si req.body.like vaut 0
             else if (likeSauce.like === 0) {
                 // Si l'utilisateur a déjà liké la sauce
@@ -220,10 +212,7 @@ exports.LikeSauce = (req, res) => {
             } else {
                 resp.error('Like must be a number between -1 and 1.', res);
             }
-
-
         }).catch((err) => {
         console.log({err})
     })
-
 }
