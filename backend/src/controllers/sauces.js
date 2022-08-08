@@ -79,7 +79,7 @@ exports.UpdateSauce = (req, res) => {
     // On vérifie que l'ID ciblé est bien présent dans la base de données
     Sauces.updateOne(
         {_id: req.params.id},
-        {updatedSauce, _id: req.params.id}
+        {...req.body, _id: req.params.id}
     ).then((sauce) => {
         // Si l'ID est présent, alors on met à jour la sauce
         if (sauce.modifiedCount === 0) return resp.error('Sauce not modified because no body here or badly written.', res);

@@ -41,4 +41,10 @@ app.use('/api/auth/login', loginRoute);
 const saucesRoute = require('./routes/sauces');
 app.use('/api/sauces', saucesRoute);
 
+// -----
+
+// Route delete account
+const deleteAccount = require('./routes/deleteAccount');
+app.use('/api/auth/delete', deleteAccount);
+
 module.exports = app;
