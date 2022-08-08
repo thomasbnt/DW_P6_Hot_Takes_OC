@@ -16,7 +16,7 @@ exports.GetAllSauces = (req, res) => {
 exports.GetSaucesPerID = (req, res) => {
     console.info('Sauces per ID request received');
     // On récupère une sauce par son ID
-    Sauces.findOne({_id: req.params.id})
+    Sauces.findOne({_id: Number(req.params.id)})
         .then((allSauces) => {
             if (allSauces === null) return resp.error('Sauce not found.', res);
             res.status(200).json(allSauces);
@@ -78,8 +78,8 @@ exports.UpdateSauce = (req, res) => {
     const updatedSauce = JSON.parse(req.body.sauce)
     // On vérifie que l'ID ciblé est bien présent dans la base de données
     Sauces.updateOne(
-        {_id: req.params.id},
-        {...req.body, _id: req.params.id}
+        {_id: Number(req.params.id)},
+        {...req.body, _id: Number(req.params.id)}
     ).then((sauce) => {
         // Si l'ID est présent, alors on met à jour la sauce
         if (sauce.modifiedCount === 0) return resp.error('Sauce not modified because no body here or badly written.', res);
@@ -93,7 +93,7 @@ exports.UpdateSauce = (req, res) => {
 exports.DeleteSauce = (req, res) => {
     console.log('DeleteSauce request received');
     // On vérifie que l'ID ciblé est bien présent dans la base de données
-    Sauces.deleteOne({_id: req.params.id})
+    Sauces.deleteOne({_id: Number(req.params.id)})
         .then((response) => {
             // Si aucune modification n'a été faite, alors on renvoie une erreur
             if (response.deletedCount === 0) return resp.error('Sauce not found or already deleted.', res);
@@ -115,7 +115,7 @@ exports.LikeSauce = (req, res) => {
         return resp.error('Missing parameter like as a number between -1 and 1.', res);
     }
 
-    Sauces.findOne({_id: req.params.id})
+    Sauces.findOne({_id: Number(req.params.id)})
         .then(sauce => {
             // Si la sauce n'existe pas
             if (sauce === null) return resp.error('Sauce not found', res);

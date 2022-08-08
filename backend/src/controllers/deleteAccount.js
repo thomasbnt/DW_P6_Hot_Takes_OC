@@ -5,20 +5,17 @@ const jwt = require("jsonwebtoken");
 exports.Del = (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'POST');
     console.log('Delete account request received');
-
-    // vérifier si le token est valide et si le c'est bien son compte
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-    if (token === null) return resp.invalidCredentials('Invalid credentials', res);
-    jwt.verify(token, process.env.KEY, (err, user) => {
-        if (err) return resp.forbidden('Forbidden.', res);
-        if (user.userId !== req.body.id) return resp.forbidden('Forbidden.', res);
-
-        // supprimer le compte
-        User.findByIdAndDelete(user.id, (err, user) => {
-                if (err) return resp.internalError(err, res);
-                return resp.success('Account deleted', res);
+    const id = Number(req.body.userId);
+    if (!id) return resp.error('No id provided', res);
+    User.deleteOne({_id: id})
+        .then(response => {
+                console.log(response);
+                if (response.deletedCount === 1) {
+                    resp.success('Account deleted', res);
+                }
+                else {
+                    resp.error('Account not found. Please use "userId".', res);
+                }
             }
-        );
-    })
+        )
 }

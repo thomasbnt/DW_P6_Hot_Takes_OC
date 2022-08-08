@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
     try {
-        console.log(req.body)
         const authHeader = req.headers['authorization'];
         const token = authHeader && authHeader.split(' ')[1];
 
@@ -12,7 +11,6 @@ module.exports = (req, res, next) => {
 
         // On décode le token
         jwt.verify(token, process.env.KEY, (err, user) => {
-            console.log(err)
             if (err) return resp.forbidden('Forbidden.', res);
             req.user = user;
             next();
