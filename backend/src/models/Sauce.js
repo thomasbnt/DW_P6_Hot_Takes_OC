@@ -1,6 +1,7 @@
 const user = require('mongoose');
 
 const sauceSchema = new user.Schema({
+    userId: { type: String, required: true },
     name: {type: String, required: true},
     manufacturer: {type: String, required: true},
     description: {type: String, required: true},
