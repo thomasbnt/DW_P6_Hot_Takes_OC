@@ -15,6 +15,10 @@ exports.GetAllSauces = (req, res) => {
 
 exports.GetSaucesPerID = (req, res) => {
     console.info('Sauces per ID request received');
+
+    // req.params.id doit être un string de 24 caractères
+    if (req.params.id.length !== 24) return resp.error('ID badly written.', res);
+
     // On récupère une sauce par son ID
     Sauces.findOne({_id: req.params.id})
         .then((allSauces) => {
@@ -42,6 +46,7 @@ exports.CreateSauce = (req, res) => {
     if (!errorParams) {
         const sauce = new Sauces({
             ...newSauce,
+            userId: req.user.userId,
             name: newSauce.name,
             manufacturer: newSauce.manufacturer,
             description: newSauce.description,
@@ -73,7 +78,9 @@ exports.CreateSauce = (req, res) => {
 
 exports.UpdateSauce = (req, res) => {
     console.info('UpdateSauce request received');
-    console.log(req.file)
+
+    // Check if the userID of the sauce is the same as the userID of the token
+    if (req.user.userId !== req.body.userId) return resp.error('You can\'t update this sauce.', res);
 
     const updatedSauce = req.file ? {
         ...JSON.parse(req.body.sauce),
