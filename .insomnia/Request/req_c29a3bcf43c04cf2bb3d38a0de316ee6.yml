@@ -1,7 +1,7 @@
 _id: req_c29a3bcf43c04cf2bb3d38a0de316ee6
 type: Request
 parentId: wrk_fdbaa87d05f9422097d10f0cc8345a69
-modified: 1655992904534
+modified: 1660840437104
 created: 1655992851802
 url: http://localhost:3000/api/sauces/:id/like
 name: Like sauce ID
@@ -11,16 +11,21 @@ body:
   mimeType: application/json
   text: |-
     {
-    	"userId": "TypeString",
-    	"like": "TypeNumber"
+    	"userId": "62f192dcbfbb2e9c93e78f4c",
+    	"like": 1
     }
 parameters: []
 headers:
   - name: Content-Type
     value: application/json
     id: pair_5055e664388c4d56beede00300f7828b
+  - id: pair_ec738acad0c14e67a023ccc42e92d7bd
+    name: Authorization
+    value: "bearer "
+    description: ""
 authentication:
   type: bearer
+  disabled: true
 metaSortKey: -1655992740158
 isPrivate: false
 settingStoreCookies: true

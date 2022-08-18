@@ -1,26 +1,37 @@
 _id: req_743c17559bc44d998c865fb13f606d06
 type: Request
 parentId: wrk_fdbaa87d05f9422097d10f0cc8345a69
-modified: 1655992796417
+modified: 1660840339026
 created: 1655992536405
 url: http://localhost:3000/api/sauces
 name: Send sauces
 description: ""
 method: POST
 body:
-  mimeType: application/json
-  text: |-
-    {
-    	"sauce": "TypeString",
-    	"image": "TypeFile"
-    }
+  mimeType: multipart/form-data
+  params:
+    - name: sauce
+      value: '{  "name": "Piko",  "manufacturer": "Picpic",  "description": "Oldel
+        Pico",  "mainPepper": "Piment picpicmenté",  "heat": 8}'
+      id: pair_7230c694292e47de845774e45a948ba1
+    - id: pair_b44154193b0b44649e36f0784825e285
+      name: image
+      value: ""
+      description: ""
+      type: file
+      multiline: null
 parameters: []
 headers:
   - name: Content-Type
-    value: application/json
+    value: multipart/form-data
     id: pair_d454811a5d244184ab07294c0997a1d2
+  - id: pair_da18bb9cff2b4261b405f4b9c6a69c44
+    name: Authorization
+    value: bearer
+    description: ""
 authentication:
   type: bearer
+  disabled: true
 metaSortKey: -1655969108357.25
 isPrivate: false
 settingStoreCookies: true

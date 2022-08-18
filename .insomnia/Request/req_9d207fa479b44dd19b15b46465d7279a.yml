@@ -1,7 +1,7 @@
 _id: req_9d207fa479b44dd19b15b46465d7279a
 type: Request
 parentId: wrk_fdbaa87d05f9422097d10f0cc8345a69
-modified: 1655992794016
+modified: 1660840388396
 created: 1655992129656
 url: http://localhost:3000/api/sauces
 name: All sauces
@@ -9,7 +9,11 @@ description: ""
 method: GET
 body: {}
 parameters: []
-headers: []
+headers:
+  - id: pair_3ee371307e544d7b976999864064c510
+    name: Authorization
+    value: bearer
+    description: ""
 authentication:
   type: bearer
 metaSortKey: -1655933913560.375
