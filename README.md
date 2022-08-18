@@ -41,7 +41,7 @@ KEY=key
 FRONT_DOMAIN=*
 ```
 
-> WARNING
+> **Note**
 > `FRONT_DOMAIN` est le domaine de votre site, ici utilisé pour des raisons de sécurité (cors), nous délimitons les calls API que depuis ce domaine.
 
 ## Cahier des charges
