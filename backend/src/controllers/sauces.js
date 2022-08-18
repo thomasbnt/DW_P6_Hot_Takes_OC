@@ -44,9 +44,15 @@ exports.CreateSauce = (req, res) => {
 
     // Si dans le cas présent aucune erreur, alors on crée la sauce
     if (!errorParams) {
-        const theName = "newSauce.name";
-        console.log(typeof(newSauce.name) === String())
-        console.log(String(theName))
+        if (
+            typeof (newSauce.name) != 'string'
+            && typeof (newSauce.manufacturer) != 'string'
+            && typeof (newSauce.description) != 'string'
+            && typeof (newSauce.mainPepper) != 'string'
+            && typeof (newSauce.heat) != 'number'
+        ) {
+            return resp.error('Badly written parameters.', res)
+        }
 
         const sauce = new Sauces({
             ...newSauce,
