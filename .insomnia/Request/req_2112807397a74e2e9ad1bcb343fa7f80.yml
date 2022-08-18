@@ -1,7 +1,7 @@
 _id: req_2112807397a74e2e9ad1bcb343fa7f80
 type: Request
 parentId: wrk_fdbaa87d05f9422097d10f0cc8345a69
-modified: 1660840422295
+modified: 1660840800979
 created: 1655992122506
 url: http://localhost:3000/auth/login
 name: Login
@@ -21,7 +21,7 @@ headers:
     id: pair_d454811a5d244184ab07294c0997a1d2
   - id: pair_db54080fc6c24cbab86d29048f1600d1
     name: Authorization
-    value: "bearer "
+    value: bearer {{ _.token }}
     description: ""
 authentication: {}
 metaSortKey: -1655898983853

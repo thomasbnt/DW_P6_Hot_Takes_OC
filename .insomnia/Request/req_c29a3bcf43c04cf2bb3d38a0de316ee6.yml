@@ -1,7 +1,7 @@
 _id: req_c29a3bcf43c04cf2bb3d38a0de316ee6
 type: Request
 parentId: wrk_fdbaa87d05f9422097d10f0cc8345a69
-modified: 1660840437104
+modified: 1660840801948
 created: 1655992851802
 url: http://localhost:3000/api/sauces/:id/like
 name: Like sauce ID
@@ -21,7 +21,7 @@ headers:
     id: pair_5055e664388c4d56beede00300f7828b
   - id: pair_ec738acad0c14e67a023ccc42e92d7bd
     name: Authorization
-    value: "bearer "
+    value: bearer {{ _.token }}
     description: ""
 authentication:
   type: bearer

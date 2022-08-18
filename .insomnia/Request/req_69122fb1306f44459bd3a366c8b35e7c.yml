@@ -1,7 +1,7 @@
 _id: req_69122fb1306f44459bd3a366c8b35e7c
 type: Request
 parentId: wrk_fdbaa87d05f9422097d10f0cc8345a69
-modified: 1660840351031
+modified: 1660840765451
 created: 1655992740108
 url: http://localhost:3000/api/sauces/:id
 name: Delete the sauce ID
@@ -12,7 +12,7 @@ parameters: []
 headers:
   - id: pair_9408577a553e45e59e1faa3e2532ea69
     name: Authorization
-    value: "bearer "
+    value: bearer {{ _.token }}
     description: ""
 authentication:
   type: bearer

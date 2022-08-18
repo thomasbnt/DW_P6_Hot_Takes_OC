@@ -1,7 +1,7 @@
 _id: req_743c17559bc44d998c865fb13f606d06
 type: Request
 parentId: wrk_fdbaa87d05f9422097d10f0cc8345a69
-modified: 1660840339026
+modified: 1660840777113
 created: 1655992536405
 url: http://localhost:3000/api/sauces
 name: Send sauces
@@ -19,7 +19,6 @@ body:
       value: ""
       description: ""
       type: file
-      multiline: null
 parameters: []
 headers:
   - name: Content-Type
@@ -27,7 +26,7 @@ headers:
     id: pair_d454811a5d244184ab07294c0997a1d2
   - id: pair_da18bb9cff2b4261b405f4b9c6a69c44
     name: Authorization
-    value: bearer
+    value: bearer {{ _.token }}
     description: ""
 authentication:
   type: bearer

@@ -1,7 +1,7 @@
 _id: req_0df71a2d040e4e81a8a3347b8e32e604
 type: Request
 parentId: wrk_fdbaa87d05f9422097d10f0cc8345a69
-modified: 1660840355193
+modified: 1660840771674
 created: 1655992659935
 url: http://localhost:3000/api/sauces/:id
 name: Update the sauce ID
@@ -20,7 +20,6 @@ body:
       value: ""
       description: ""
       type: file
-      multiline: null
 parameters: []
 headers:
   - name: Content-Type
@@ -28,7 +27,7 @@ headers:
     id: pair_10d4241091974089bf6a351c69ed7b29
   - id: pair_898b3e31467b47d798b3b7006b17a31f
     name: Authorization
-    value: "bearer "
+    value: bearer {{ _.token }}
     description: ""
 authentication:
   type: bearer
