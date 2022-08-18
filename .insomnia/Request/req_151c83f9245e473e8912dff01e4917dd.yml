@@ -1,7 +1,7 @@
 _id: req_151c83f9245e473e8912dff01e4917dd
 type: Request
 parentId: wrk_fdbaa87d05f9422097d10f0cc8345a69
-modified: 1655992631998
+modified: 1660840800063
 created: 1655898983903
 url: http://localhost:3000/auth/signup
 name: Signup
@@ -12,7 +12,7 @@ body:
   text: |-
     {
     	"email": "admin@thomasbnt.fr",
-    	"password": "pass"
+    	"password": "password"
     }
 parameters: []
 headers:
@@ -20,7 +20,7 @@ headers:
     value: application/json
     id: pair_d454811a5d244184ab07294c0997a1d2
 authentication: {}
-metaSortKey: -1655898983903
+metaSortKey: -1655898983803
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true
