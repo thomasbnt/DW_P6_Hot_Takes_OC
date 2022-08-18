@@ -90,7 +90,7 @@ exports.UpdateSauce = (req, res) => {
     console.info('UpdateSauce request received');
 
     // Check if the userID of the sauce is the same as the userID of the token
-    if (req.user.userId !== req.body.userId) return resp.error('You can\'t update this sauce.', res);
+    if (req.user.userId !== req.body.userId) return resp.forbidden('You can\'t update this sauce.', res);
 
     const updatedSauce = req.file ? {
         ...JSON.parse(req.body.sauce),
