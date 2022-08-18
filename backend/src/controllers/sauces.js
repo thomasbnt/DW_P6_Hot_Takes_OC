@@ -44,6 +44,10 @@ exports.CreateSauce = (req, res) => {
 
     // Si dans le cas présent aucune erreur, alors on crée la sauce
     if (!errorParams) {
+        const theName = "newSauce.name";
+        console.log(typeof(newSauce.name) === String())
+        console.log(String(theName))
+
         const sauce = new Sauces({
             ...newSauce,
             userId: req.user.userId,
