@@ -50,12 +50,12 @@ FRONT_DOMAIN=*
 
 ### Ouvrir les tests API sur Insomnia
 
-[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run?label=Code&uri=https://raw.githubusercontent.com/thomasbnt/DW_P6_Hot_Takes_backend_OC/main/backend/insomnia.json)
+[![Run in Insomnia](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run?label=Code&uri=https://raw.githubusercontent.com/thomasbnt/DW_P6_Hot_Takes_backend_OC/main/insomnia.json)
 
 ## Développement
 
 - Projet réalisé avec **Intellij**.
-- Testé avec [Hoppscotch](https://hoppscotch.io).
+- Testé avec [Hoppscotch](https://hoppscotch.io). (_Fichier de configuration : [`.hoppscotch.json`](hoppscotch.json)_)
 
 ## Contributions
 
