@@ -1,5 +1,5 @@
-# env configs
-.env
+# Images folder
+src/images/*
 
 # Logs
 logs
