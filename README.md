@@ -37,6 +37,7 @@ Exemple de `.env` :
 ```dotenv
 MONGODB_USERNAME=USER
 MONGODB_PASSWORD=PASS
+MONGODB_DOMAIN=cluster0.example.mongodb.net
 KEY=key
 FRONT_DOMAIN=*
 ```
